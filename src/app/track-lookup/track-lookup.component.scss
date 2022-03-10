@@ -1,0 +1,75 @@
+
+@media only  screen and (min-width:800px) {
+  .track-search{
+    min-width: 800px;
+    font-size: 1.3rem;
+}
+.track-card{
+  min-height: 300px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+background: linear-gradient(146deg, rgba(42,42,42,0.4990371148459384) 100%, rgba(42,42,42,0.5) 100%);
+  flex: .5 1 300px;
+}
+.artist-img{
+position: absolute;
+bottom: -95px;
+width:225px;
+border-radius: 6px;
+height: 225px;
+
+background: rgba(109, 109, 109, 0.335);
+background-size:cover;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.name-container{
+  margin-left: 255px;
+}
+.track-img{
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  background-size: contain;
+}
+}
+
+@media only  screen and (max-width:799px) {
+  .track-search{
+    min-width: 85%;
+    font-size: 1.3rem;
+}
+.name-container{
+  margin-left: 175px;
+  max-width: min-content;
+}
+.track-card{
+max-width: 100%;
+min-height: 300px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+background: linear-gradient(146deg, rgba(42,42,42,0.4990371148459384) 100%, rgba(42,42,42,0.5) 100%);
+  flex: .5 1 300px;
+}
+.artist-img{
+position: absolute;
+bottom: -50px;
+width:150px;
+border-radius: 6px;
+height: 150px;
+background: rgba(109, 109, 109, 0.335);
+background-size:contain;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.track-img{
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  background-size: contain;
+}
+.list-item{
+  max-width:90vw;
+}
+.list{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+}
