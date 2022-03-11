@@ -16,8 +16,8 @@ var corsOptions = {
 app.use(cors(corsOptions))
 var jsonParser = bodyParser.json()
 
-var client_id = '95fa9c7ce7d542be80ed239591cf48f7';
-var client_secret='0ec7f62346c44f0b88c9e665ce337d9b'
+var client_id = '[YOUR_CLIENT_ID]';
+var client_secret='[YOUR_CLIENT_SECRET]'
 var redirect_uri = 'http://localhost:4200/';
 
 
