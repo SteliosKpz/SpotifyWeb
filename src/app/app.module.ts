@@ -17,12 +17,14 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TrackLookupComponent } from './track-lookup/track-lookup.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    TrackLookupComponent
+    TrackLookupComponent,
+    AboutComponent
   ],
   imports: [
     MatProgressBarModule,

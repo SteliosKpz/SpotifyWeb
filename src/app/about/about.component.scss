@@ -1,0 +1,57 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+.img{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-image: url('https://avatars.githubusercontent.com/u/32737232?v=4');
+
+  border-radius: 150px;
+  background-size: cover;
+}
+.connect:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+@media only screen and (min-width:801px){
+  .name{
+    text-align: center;
+    color: white;
+    font-size: 4rem;
+    font-weight: 500;
+    line-height: 5rem;
+  }
+  .img-responsive{
+    width: 18rem;
+    height: 18rem;
+  }
+  .git-img-container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:1rem;
+    flex-wrap: wrap;
+  }
+}
+@media only screen and (max-width:800px){
+  .name{
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 500;
+    line-height: 2rem;
+  }
+  .img-responsive{
+    width: 15rem;
+    height: 15rem;
+  }
+  .git-img-container{
+    display: flex;
+    justify-content:center;
+    gap:1rem;
+    flex-wrap: wrap;
+  }
+}
