@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from '../services/token.service';
+import { map,switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-track-lookup',
   templateUrl: './track-lookup.component.html',
@@ -9,10 +11,9 @@ import { TokenService } from '../services/token.service';
 })
 export class TrackLookupComponent implements OnInit {
   tokenObj;
-  currentTrack: any;
   currentArtist;
   artistTracks;
-  artists;
+  artists:Observable<any>;
   artistForm;
   lastIndex = 0;
 
@@ -27,28 +28,16 @@ export class TrackLookupComponent implements OnInit {
           headers: new HttpHeaders(
             `Authorization:Bearer ${this.tokenObj.access_token}`
           ),
-        })
-        .subscribe((res) => {
-          let res1: any = res;
-          this.artists = res1.artists.items;
-        });
+        }).pipe(map(
+          (res:any)=>{return res.artists.items}
+        ))
     });
   }
 
   ngOnInit(): void {
 
   }
-  getTrack() {
-    this.http
-      .get('https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V', {
-        headers: new HttpHeaders(
-          `Authorization:Bearer ${this.tokenObj.access_token}`
-        ),
-      })
-      .subscribe((res) => {
-        this.currentTrack = res;
-      });
-  }
+
   setArtist(artist) {
     this.currentArtist = artist;
     this.http

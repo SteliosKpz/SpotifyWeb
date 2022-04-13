@@ -4,7 +4,7 @@
     <mat-label>Artist</mat-label>
     <input matInput [formControl]="artistForm.controls.artist" required [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let artist of artists" [value]="artist.name" style="margin-bottom: 10px;min-height: 125px;"
+      <mat-option *ngFor="let artist of artists|async" [value]="artist.name" style="margin-bottom: 10px;min-height: 125px;"
         (click)="setArtist(artist)">
         <div style="display:flex;min-height:100px;gap: .5rem;width: 100%;align-items: center;"
           *ngIf="artist.images.length===3">
@@ -19,7 +19,7 @@
 
       </mat-option>
     </mat-autocomplete>
-    <button mat-icon-button matSuffix (click)="getTrack()">
+    <button mat-icon-button matSuffix >
       <mat-icon style="font-size: 1.3rem;width: 1.3rem;height: 1.3rem;">search</mat-icon>
     </button>
 
