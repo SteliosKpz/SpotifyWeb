@@ -7,10 +7,10 @@ export class TokenService {
 
   constructor() {}
 
-  setToken(token){
+  setToken(token):void{
     localStorage.setItem('token',JSON.stringify(token))
   }
-  getToken(){
+  getToken():Object{
     return JSON.parse(localStorage.getItem('token'))
   }
 }

@@ -5,9 +5,9 @@ import { TrackLookupComponent } from './track-lookup/track-lookup.component';
 import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
-  {path:'',component:HomePageComponent},
-  {path:'track-lookup',component:TrackLookupComponent},
-  {path:'about',component:AboutComponent}
+  {path: '', component:HomePageComponent},
+  {path: 'track-lookup', component:TrackLookupComponent},
+  {path: 'about', component:AboutComponent}
 ];
 
 @NgModule({
