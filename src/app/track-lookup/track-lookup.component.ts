@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from '../services/token.service';
-import { map, switchMap } from 'rxjs/operators';
+import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-track-lookup',
@@ -16,14 +16,20 @@ export class TrackLookupComponent implements OnInit {
   artists: Observable<any>;
   artistForm;
   lastIndex = 0;
+  search;
 
   constructor(private http: HttpClient, private token: TokenService) {
     this.tokenObj = this.token.getToken();
     this.artistForm = new FormGroup({
       artist: new FormControl(null, [Validators.required]),
     });
+    this.search = this.artistForm
+      .get('artist')
+      .valueChanges.pipe(debounceTime(300));
+  }
 
-    this.artistForm.get('artist').valueChanges.subscribe((res) => {
+  ngOnInit(): void {
+    this.search.subscribe((res) => {
       this.artists = this.http
         .get(`https://api.spotify.com/v1/search?q=${res}&type=${'artist'}`, {
           headers: new HttpHeaders(
@@ -34,9 +40,7 @@ export class TrackLookupComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
-  setArtist(artist):void {
+  setArtist(artist): void {
     this.currentArtist = artist;
     this.http
       .get(
@@ -49,11 +53,7 @@ export class TrackLookupComponent implements OnInit {
       )
       .subscribe((res) => {
         this.currentArtist = Object.assign(this.currentArtist, res);
-<<<<<<< HEAD
         for (const i in this.currentArtist.tracks) {
-=======
-        for (let i in this.currentArtist.tracks) {
->>>>>>> 602a686f319deabe76443ddd3722a0f8b0925be5
           this.currentArtist.tracks[i].audio = new Audio(
             this.currentArtist.tracks[i].preview_url
           );
@@ -64,7 +64,7 @@ export class TrackLookupComponent implements OnInit {
       });
   }
 
-  playPreview(i):void {
+  playPreview(i): void {
     if (this.lastIndex !== i) {
       this.currentArtist.tracks[this.lastIndex].audio.pause();
       this.currentArtist.tracks[this.lastIndex].playing = false;
