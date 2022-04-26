@@ -49,7 +49,11 @@ export class TrackLookupComponent implements OnInit {
       )
       .subscribe((res) => {
         this.currentArtist = Object.assign(this.currentArtist, res);
+<<<<<<< HEAD
         for (const i in this.currentArtist.tracks) {
+=======
+        for (let i in this.currentArtist.tracks) {
+>>>>>>> 602a686f319deabe76443ddd3722a0f8b0925be5
           this.currentArtist.tracks[i].audio = new Audio(
             this.currentArtist.tracks[i].preview_url
           );

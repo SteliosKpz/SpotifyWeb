@@ -6,10 +6,11 @@ import {
 import { RouterTestingModule } from '@angular/router/testing/';
 import { HomePageComponent } from './home-page.component';
 
+
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
   let fixture: ComponentFixture<HomePageComponent>;
-
+  let httpMock: HttpTestingController;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
