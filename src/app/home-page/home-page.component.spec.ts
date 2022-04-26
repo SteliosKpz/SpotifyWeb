@@ -1,13 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing/'
 import { HomePageComponent } from './home-page.component';
+
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
   let fixture: ComponentFixture<HomePageComponent>;
-
+  let httpMock: HttpTestingController;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule,RouterTestingModule],
       declarations: [ HomePageComponent ]
     })
     .compileComponents();

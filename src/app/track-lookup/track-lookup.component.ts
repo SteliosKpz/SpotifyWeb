@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TokenService } from '../services/token.service';
-import { map,switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-track-lookup',
@@ -13,7 +13,7 @@ export class TrackLookupComponent implements OnInit {
   tokenObj;
   currentArtist;
   artistTracks;
-  artists:Observable<any>;
+  artists: Observable<any>;
   artistForm;
   lastIndex = 0;
 
@@ -22,23 +22,21 @@ export class TrackLookupComponent implements OnInit {
     this.artistForm = new FormGroup({
       artist: new FormControl(null, [Validators.required]),
     });
+
     this.artistForm.get('artist').valueChanges.subscribe((res) => {
       this.artists = this.http
         .get(`https://api.spotify.com/v1/search?q=${res}&type=${'artist'}`, {
           headers: new HttpHeaders(
             `Authorization:Bearer ${this.tokenObj.access_token}`
           ),
-        }).pipe(map(
-          (res:any)=>{return res.artists.items}
-        ))
+        })
+        .pipe(map((response: any) => response.artists.items));
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  setArtist(artist) {
+  setArtist(artist):void {
     this.currentArtist = artist;
     this.http
       .get(
@@ -51,20 +49,19 @@ export class TrackLookupComponent implements OnInit {
       )
       .subscribe((res) => {
         this.currentArtist = Object.assign(this.currentArtist, res);
-        for (var i in this.currentArtist.tracks) {
+        for (let i in this.currentArtist.tracks) {
           this.currentArtist.tracks[i].audio = new Audio(
             this.currentArtist.tracks[i].preview_url
           );
           this.currentArtist.tracks[i].playing = false;
-          this.currentArtist.tracks[i].progress=0
+          this.currentArtist.tracks[i].progress = 0;
         }
         console.log(this.currentArtist);
       });
   }
 
-
-  playPreview(i) {
-    if (this.lastIndex != i) {
+  playPreview(i):void {
+    if (this.lastIndex !== i) {
       this.currentArtist.tracks[this.lastIndex].audio.pause();
       this.currentArtist.tracks[this.lastIndex].playing = false;
     }
@@ -79,19 +76,22 @@ export class TrackLookupComponent implements OnInit {
       default:
         break;
     }
-    this.currentArtist.tracks[i].playing = this.currentArtist.tracks[i].playing ? false : true;
+    this.currentArtist.tracks[i].playing = this.currentArtist.tracks[i].playing
+      ? false
+      : true;
     this.lastIndex = i;
 
-    var progressInterval=setInterval(()=>{
-      if(this.currentArtist.tracks[i].playing==true && this.currentArtist.tracks[i].progress<100){
-        this.currentArtist.tracks[i].progress++
+    const progressInterval = setInterval(() => {
+      if (
+        this.currentArtist.tracks[i].playing === true &&
+        this.currentArtist.tracks[i].progress < 100
+      ) {
+        this.currentArtist.tracks[i].progress++;
+      } else {
+        clearInterval(progressInterval);
+        this.currentArtist.tracks[i].progress = 0;
+        this.currentArtist.tracks[i].playing = false;
       }
-      else{
-        clearInterval(progressInterval)
-        this.currentArtist.tracks[i].progress=0
-        this.currentArtist.tracks[i].playing=false
-      }
-    },(this.currentArtist.tracks[i].audio.duration/100)*1000)
-
-      }
+    }, (this.currentArtist.tracks[i].audio.duration / 100) * 1000);
+  }
 }
